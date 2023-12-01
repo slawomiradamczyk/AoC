@@ -1,0 +1,5 @@
+function(add_executable_with_all_cpp NAME)
+    file(GLOB SRCS "*.cpp")
+    add_executable(${NAME} ${SRCS})
+    target_link_libraries(${NAME} common)
+endfunction(add_executable_with_all_cpp)
