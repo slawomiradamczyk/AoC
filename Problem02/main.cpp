@@ -3,24 +3,13 @@
 // Copyright (c) 2023 FineCode IT Slawomir Adamczyk. All rights reserved.
 //
 #include "input_reader.h"
+#include "parser.h"
 
 #include <iostream>
 #include <sstream>
 #include <charconv>
 
 namespace {
-    auto getInt(const std::string_view &str) {
-        int value{-1};
-        auto number_pos = std::find_if(str.begin(), str.end(), [](char c) {
-            return std::isdigit(c);
-        });
-        auto ecc = std::from_chars(number_pos, str.data() + str.size(), value);
-        if (ecc.ec != std::errc{}) {
-            std::cout << "Parsing failure: " << str << std::endl;
-        }
-        return value;
-
-    }
 
     struct Draw {
         int red{0};
@@ -60,7 +49,7 @@ namespace {
     }
 
     void Draw::add(std::string_view str) {
-        int value = getInt(str);
+        int value = aoc::getInt(str);
         if (str.find("red") != std::string::npos) {
             red += value;
         } else if (str.find("blue") != std::string::npos) {
@@ -115,7 +104,7 @@ namespace {
 
 
     auto getGameNumber(const std::string &line) {
-        return getInt(line);
+        return aoc::getInt(line);
     }
 }
 
