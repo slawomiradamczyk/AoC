@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <charconv>
+#include "string_split.h"
 
 namespace {
 
@@ -66,18 +67,10 @@ namespace {
 
 
     auto parseSingleDraw(std::string_view draw_str) {
-        size_t search_start = 0;
         Draw draw{};
-        while (search_start != std::string_view::npos) {
-            auto search_end = draw_str.find(',', search_start + 1);
-            std::string_view value_color_str;
-            if (search_end != std::string::npos) {
-                value_color_str = {draw_str.data() + search_start + 1, draw_str.data() + search_end};
-            } else {
-                value_color_str = {draw_str.data() + search_start + 1, draw_str.end()};
-            }
+        auto value_color_strings = aoc::split(draw_str, ',');
+        for(const auto &value_color_str : value_color_strings) {
             draw.add(value_color_str);
-            search_start = search_end;
         }
         std::cout << "Draw str: " << draw_str << std::endl;
         std::cout << "Draw parsed: " << draw << std::endl;
@@ -87,36 +80,22 @@ namespace {
     auto parseDraws(const std::string &line) {
         std::vector<Draw> ret_val;
         auto search_start = line.find(':');
-        while (search_start != std::string::npos) {
-            auto search_end_pos = line.find(';', search_start + 1);
-            std::string_view single_draw;
-            if (search_end_pos != std::string::npos) {
-                single_draw = {line.data() + search_start + 1, line.data() + search_end_pos};
-            } else {
-                single_draw = {line.data() + search_start + 1};
-            }
+        std::string_view draws_str{std::next(line.begin(), search_start + 1), line.end()};
+        auto draws = aoc::split(draws_str, ';');
+        for(const auto &single_draw : draws){
             auto draw = parseSingleDraw(single_draw);
             ret_val.push_back(draw);
-            search_start = search_end_pos;
-        };
+        }
         return ret_val;
     }
 
-
-    auto getGameNumber(const std::string &line) {
-        return aoc::getInt(line);
-    }
 }
-
-
 
 int main() {
     aoc::InputReader input{};
     int total{0};
     for (const auto &line: input.getLines()) {
-        int game_number = getGameNumber(line);
         MinNeeded min_needed{};
-        std::cout << "Game number " << game_number << std::endl;
         auto hands = parseDraws(line);
         for (const auto &hand: hands) {
             min_needed+=hand;
