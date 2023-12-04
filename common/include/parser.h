@@ -15,10 +15,9 @@ namespace aoc {
         });
         auto ecc = std::from_chars(number_pos, str.data() + str.size(), value);
         if (ecc.ec != std::errc{}) {
-            std::cout << "Parsing failure: " << str << std::endl;
+            throw std::range_error{"Bad Int"};
         }
         return value;
-
     }
 }
 #endif //AOC_PARSER_H
