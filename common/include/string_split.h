@@ -9,7 +9,6 @@
 namespace aoc{
     std::vector<std::string_view>  split(const std::string_view& str, char delimiter){
         std::vector<std::string_view> ret_val;
-        std::cout << "splitting string: " << str << std::endl;
         size_t start_pos{0};
         while(start_pos != std::string_view::npos) {
             auto end_pos = str.find(delimiter, start_pos);
@@ -21,7 +20,6 @@ namespace aoc{
                 token = {str.begin() + start_pos, str.end()};
                 start_pos = end_pos;
             }
-            std::cout << "token: "<<token<<std::endl;
             ret_val.push_back(token);
         }
         return ret_val;

@@ -13,14 +13,14 @@
 #include <numeric>
 
 namespace {
-    std::set<int> getInts(const std::string_view &view) {
-        std::set<int> ret_val;
-        auto int_str = aoc::split(view, ' ');
-        for (const auto &int_s: int_str) {
+    std::set<long> getlongs(const std::string_view &view) {
+        std::set<long> ret_val;
+        auto long_str = aoc::split(view, ' ');
+        for (const auto &long_s: long_str) {
             try {
-                ret_val.insert(aoc::getInt(int_s));
+                ret_val.insert(aoc::getLong(long_s));
             } catch (const std::exception &e) {
-                std::cout << "Failed to convert: " << int_s << std::endl;
+                std::cout << "Failed to convert: " << long_s << std::endl;
             }
         }
         return ret_val;
@@ -31,21 +31,21 @@ namespace {
 int main() {
     aoc::InputReader input{};
     const auto &input_lines = input.getLines();
-    std::vector<int> card_count(input_lines.size(), 1);
-    int total{0};
-    for (int i = 0; i<input_lines.size();++i) {
+    std::vector<long> card_count(input_lines.size(), 1);
+    long total{0};
+    for (long i = 0; i<input_lines.size();++i) {
         const auto & line = input_lines[i];
         auto colon_pos = line.find(':');
         std::string_view values{line.begin() + colon_pos + 1, line.end()};
         auto values_splitted = aoc::split(values, '|');
-        auto winning_values = getInts(values_splitted[0]);
-        auto my_values = getInts(values_splitted[1]);
-        std::set<int> diff;
-        std::set_intersection(winning_values.begin(), winning_values.end(),
+        auto winning_values = getlongs(values_splitted[0]);
+        auto my_values = getlongs(values_splitted[1]);
+        std::set<long> diff;
+        std::set_longersection(winning_values.begin(), winning_values.end(),
                             my_values.begin(), my_values.end(),
                             std::inserter(diff, diff.begin()));
         if(not diff.empty()) {
-            for(int j = 1; j <= diff.size(); ++j){
+            for(long j = 1; j <= diff.size(); ++j){
                 card_count[i+j]+=card_count[i];
             }
         }

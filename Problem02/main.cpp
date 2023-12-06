@@ -13,9 +13,9 @@
 namespace {
 
     struct Draw {
-        int red{0};
-        int green{0};
-        int blue{0};
+        long red{0};
+        long green{0};
+        long blue{0};
 
         friend std::ostream &operator<<(std::ostream &os, const Draw &draw);
 
@@ -38,7 +38,7 @@ namespace {
             }
         }
 
-        int power() const {
+        long power() const {
             return red*green*blue;
         }
     };
@@ -50,7 +50,7 @@ namespace {
     }
 
     void Draw::add(std::string_view str) {
-        int value = aoc::getInt(str);
+        long value = aoc::getLong(str);
         if (str.find("red") != std::string::npos) {
             red += value;
         } else if (str.find("blue") != std::string::npos) {
@@ -93,7 +93,7 @@ namespace {
 
 int main() {
     aoc::InputReader input{};
-    int total{0};
+    long total{0};
     for (const auto &line: input.getLines()) {
         MinNeeded min_needed{};
         auto hands = parseDraws(line);

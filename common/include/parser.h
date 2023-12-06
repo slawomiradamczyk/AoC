@@ -8,14 +8,14 @@
 #ifndef AOC_PARSER_H
 #define AOC_PARSER_H
 namespace aoc {
-    auto getInt(const std::string_view &str) {
-        int value{-1};
+    auto getLong(const std::string_view &str) {
+        long value{-1};
         auto number_pos = std::find_if(str.begin(), str.end(), [](char c) {
             return std::isdigit(c);
         });
         auto ecc = std::from_chars(number_pos, str.data() + str.size(), value);
         if (ecc.ec != std::errc{}) {
-            throw std::range_error{"Bad Int"};
+            throw std::range_error{"Bad long"};
         }
         return value;
     }

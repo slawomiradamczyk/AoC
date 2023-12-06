@@ -15,9 +15,9 @@ namespace {
     };
 
     auto find_first_spelled(const std::string_view &view) {
-        std::optional<int> ret_val;
+        std::optional<long> ret_val;
         auto last_found = view.end();
-        for (int i = 0; i < kAllowedDigitNames.size(); ++i) {
+        for (long i = 0; i < kAllowedDigitNames.size(); ++i) {
             auto found_pos = view.find(kAllowedDigitNames.at(i));
             if (found_pos != std::string_view::npos) {
                 auto new_found = std::next(view.begin(), found_pos);
@@ -31,9 +31,9 @@ namespace {
     }
 
     auto find_last_spelled(const std::string_view &view) {
-        std::optional<int> ret_val;
+        std::optional<long> ret_val;
         auto last_found = view.begin() - 1;
-        for (int i = 0; i < kAllowedDigitNames.size(); ++i) {
+        for (long i = 0; i < kAllowedDigitNames.size(); ++i) {
             auto found_pos = view.rfind(kAllowedDigitNames.at(i));
             if (found_pos != std::string_view::npos) {
                 auto new_found = std::next(view.begin(), found_pos);
@@ -50,7 +50,7 @@ namespace {
 
 int main() {
     aoc::InputReader input{};
-    int total{0};
+    long total{0};
     for (const auto &line: input.getLines()) {
         auto first_digit_char = std::find_if(line.begin(), line.end(), [](char c) { return std::isdigit(c); });
         auto last_digit_char = std::find_if(line.rbegin(), line.rend(), [](char c) { return std::isdigit(c); });
@@ -61,7 +61,7 @@ int main() {
         auto first_digit = first_digit_spelled ? *first_digit_spelled : *first_digit_char - '0';
         auto last_digit = last_digit_spelled ? *last_digit_spelled : *last_digit_char - '0';
 
-        int calibration_value = (first_digit) * 10 + last_digit;
+        long calibration_value = (first_digit) * 10 + last_digit;
         total += calibration_value;
     }
     std::cout << total << std::endl;
