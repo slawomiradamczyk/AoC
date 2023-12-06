@@ -8,7 +8,7 @@
 #include "input_reader.h"
 
 namespace {
-    constexpr auto kInputFilename = "input.txt";
+    constexpr auto kInputFilename = "input.h";
 }
 
 namespace aoc {

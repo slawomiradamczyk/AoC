@@ -1,1 +1,1 @@
-add_executable_with_all_cpp(Problem05)
+add_executable_with_all_cpp(Problem06)
