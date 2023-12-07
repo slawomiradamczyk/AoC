@@ -5,7 +5,6 @@
 #include "input.h"
 #include "input_reader.h"
 #include "parser.h"
-#include "string_split.h"
 
 #include <iostream>
 #include <set>
