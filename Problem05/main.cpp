@@ -11,18 +11,6 @@
 #include <numeric>
 
 namespace {
-    std::vector<long> getlongs(const std::string_view &view) {
-        std::vector<long> ret_val;
-        auto long_str = aoc::split(view, ' ');
-        for (const auto &long_s: long_str) {
-            try {
-                ret_val.push_back(aoc::getLong(long_s));
-            } catch (const std::exception &e) {
-                std::cout << "Failed to convert: " << long_s << std::endl;
-            }
-        }
-        return ret_val;
-    }
 
 struct Mapping {
     explicit Mapping(const std::vector<long> &mapping_line) : destination{mapping_line[1]}, source{mapping_line[0]}, length{mapping_line[2]}{
@@ -84,7 +72,7 @@ SeedToLocationSolver parseFromInputLines(const std::vector<std::string> &input_l
             solver.AddSolver(std::move(current_resolver));
             current_resolver = {};
         } else {
-            current_resolver.AddMapping(Mapping(getlongs(*it)));
+            current_resolver.AddMapping(Mapping(aoc::getlongs(*it)));
         }
     }
     solver.AddSolver(std::move(current_resolver));
@@ -93,7 +81,7 @@ SeedToLocationSolver parseFromInputLines(const std::vector<std::string> &input_l
 
 std::vector<std::pair<long, long>> parseSeeds(const std::string &seed_line){
     std::vector<std::pair<long, long>> ret_val;
-    auto seeds = getlongs(aoc::split(seed_line, ':')[1]);
+    auto seeds = aoc::getlongs(aoc::split(seed_line, ':')[1]);
     for(auto it = seeds.begin(); it != seeds.end(); it+=2){
         ret_val.emplace_back(*it, *(it+1));
     }
