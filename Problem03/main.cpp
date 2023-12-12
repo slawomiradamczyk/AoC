@@ -21,7 +21,7 @@ int main() {
     };
     std::map<const char *, std::vector<long>> gear_candidates{};
     for (long i = 0; i < input_lines.size(); ++i) {
-        const auto &prev_line = input_lines[std::max(0, i - 1)];
+        const auto &prev_line = input_lines[std::max(0L, i - 1)];
         const auto &current_line = input_lines[i];
         const auto &next_line = input_lines[std::min(i + 1, static_cast<long>(input_lines.size() - 1))];
         auto number_start = std::find_if(current_line.begin(), current_line.end(),

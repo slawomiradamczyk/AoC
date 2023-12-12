@@ -41,7 +41,7 @@ int main() {
         auto winning_values = getlongs(values_splitted[0]);
         auto my_values = getlongs(values_splitted[1]);
         std::set<long> diff;
-        std::set_longersection(winning_values.begin(), winning_values.end(),
+        std::set_intersection(winning_values.begin(), winning_values.end(),
                             my_values.begin(), my_values.end(),
                             std::inserter(diff, diff.begin()));
         if(not diff.empty()) {
@@ -51,5 +51,5 @@ int main() {
         }
     }
 
-    std::cout << "Values:" << std::accumulate(card_count.begin(), card_count.end(), 0) << std::endl;
+    std::cout << "Values:" << std::accumulate(card_count.begin(), card_count.end(), 0L) << std::endl;
 }
