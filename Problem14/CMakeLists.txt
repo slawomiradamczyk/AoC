@@ -1,0 +1,3 @@
+add_executable_with_all_cpp(Problem14)
+
+
